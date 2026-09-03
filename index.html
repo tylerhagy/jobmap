@@ -43,6 +43,19 @@
     --shadow-sm:0 1px 2px rgba(0,0,0,.3), 0 14px 34px -22px rgba(0,0,0,.6);
   }
 }
+/* Force dark regardless of OS scheme — the other direction of the escape
+   hatch above, driven by the in-app toggle rather than prefers-color-scheme. */
+:root[data-theme=dark] {
+  --bg:#16171a; --panel:#1f2024; --ink:#f5f5f7; --dim:#98989d; --faint:#7c7c84;
+  --line:rgba(255,255,255,.13); --line-2:rgba(255,255,255,.2);
+  --hover:rgba(255,255,255,.08);
+  --accent:#0a84ff; --accent-soft:rgba(10,132,255,.16); --on-accent:#fff;
+  --warn:#e0b25a; --warn-soft:rgba(224,178,90,.13);
+  --danger:#ff453a; --danger-soft:rgba(255,69,58,.14);
+  --ok:#30d158; --ok-soft:rgba(48,209,88,.14); --on-ok:#0e1a14;
+  --flag:#ff9c52; --act:#ff6b5c; --none:#969ba6;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3), 0 14px 34px -22px rgba(0,0,0,.6);
+}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);
@@ -69,7 +82,7 @@ input,textarea,select{font:inherit;color:inherit}
 .tabs button:hover{color:var(--ink)}
 .tabs button.on{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 .btn{padding:6px var(--s3);border-radius:8px;font-size:var(--t-small);font-weight:500;color:var(--dim)}
-.btn.big{padding:10px 18px;font-size:var(--t-ui);display:inline-flex;align-items:center}
+.btn.big{height:28px;padding:0 11px;font-size:var(--t-small);display:inline-flex;align-items:center}
 .btn:hover{background:var(--hover);color:var(--ink)}
 .btn.on{background:var(--ink);color:var(--panel)}
 .btn.on:hover{background:var(--ink);filter:brightness(1.35)}
@@ -84,6 +97,12 @@ input,textarea,select{font:inherit;color:inherit}
 
 /* ---------- banners ---------- */
 #banners{position:sticky;top:var(--hdr-h);z-index:4}
+/* Present mode drops the header entirely, matching ORCA/priority-guide's
+   minimal present chrome — exit stays reachable via Esc/P (wired in JS
+   regardless of button visibility). */
+body[data-present] #bar{display:none}
+body[data-present] #banners{top:0}
+body[data-present] main{height:100%}
 .banner{padding:9px var(--s4);font-size:var(--t-small);border-bottom:1px solid var(--line)}
 .banner.err{background:#fdf1ef;color:#8a2d16}
 .banner.warn{background:#fdf8ec;color:#7a5b00}
@@ -167,7 +186,7 @@ h2.section:first-child{margin-top:0}
 .rootpick:hover i{border-top-color:var(--accent)}
 .pickmenu{display:none;position:absolute;top:calc(100% + 7px);left:-10px;z-index:9;
   background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:5px;
-  box-shadow:0 10px 30px rgba(0,0,0,.13);max-height:60vh;overflow-y:auto;min-width:340px}
+  box-shadow:var(--shadow-sm);max-height:60vh;overflow-y:auto;min-width:340px}
 .picker.open .pickmenu{display:block}
 .pickitem{display:flex;gap:var(--s3);align-items:center;width:100%;text-align:left;padding:7px 10px;
   border-radius:8px;font-size:13px;color:var(--dim)}
@@ -244,11 +263,17 @@ body[data-present] #rail{display:none}
 .g-item .m{font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
 .g-item.on .m{color:var(--dim)}
 .g-item .m .o{color:var(--flag);font-weight:600}
-.gtools{position:absolute;right:5px;top:4px;display:flex;gap:1px;opacity:0;padding-left:14px;
+.gtools{position:absolute;right:5px;top:4px;display:flex;gap:1px;opacity:0;pointer-events:none;padding-left:14px;
   transition:opacity .1s;background:linear-gradient(90deg,transparent,var(--panel) 45%)}
 .g-item.on .gtools{background:linear-gradient(90deg,transparent,var(--accent-soft) 45%)}
-.g-item:hover .gtools,.g-item:focus-within .gtools{opacity:1}
-.gtools button{color:var(--faint);padding:2px;border-radius:4px;display:flex;border:0;background:none;cursor:pointer}
+.g-item:hover .gtools,.g-item:focus-within .gtools{opacity:1;pointer-events:auto}
+.gtools button{position:relative;color:var(--faint);width:17px;height:17px;padding:2px;
+  border-radius:4px;display:flex;align-items:center;justify-content:center;border:0;
+  background:none;cursor:pointer}
+/* Bigger hit area than the visual icon, without widening the row's fade zone
+   (the pseudo-element sits outside layout flow, so it doesn't grow the space
+   .gtools reserves and doesn't creep further into the row's click center). */
+.gtools button::before{content:'';position:absolute;inset:-3.5px}
 .gtools button:hover{color:var(--ink);background:rgba(16,18,22,.08)}
 .gtools button.danger:hover{color:var(--flag);background:rgba(184,84,31,.12)}
 .gtools button:disabled{opacity:.25;cursor:default}
@@ -297,7 +322,7 @@ body[data-present] #rail{display:none}
 .scrim{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;
   padding:var(--s4);background:rgba(16,18,22,.34)}
 .dlg{width:min(430px,100%);background:var(--panel);border:1px solid var(--line);border-radius:14px;
-  padding:20px;box-shadow:0 18px 50px rgba(0,0,0,.24),0 2px 8px rgba(0,0,0,.10)}
+  padding:20px;box-shadow:var(--shadow-sm)}
 .dlg h2{margin:0 0 var(--s2);font-size:var(--t-lede);font-weight:600;letter-spacing:-.01em}
 .dlg p{margin:0 0 var(--s4);font-size:var(--t-body);color:var(--dim);line-height:1.55}
 .dlg p b{color:var(--ink);font-weight:600}
@@ -322,7 +347,7 @@ body[data-present] #rail{display:none}
 body[data-capture] #capScrim{display:flex}
 #capture{width:min(620px,100%);background:var(--panel);border:1px solid var(--line);border-radius:14px;
   padding:18px;display:flex;flex-direction:column;gap:10px;
-  box-shadow:0 18px 50px rgba(0,0,0,.24),0 2px 8px rgba(0,0,0,.10)}
+  box-shadow:var(--shadow-sm)}
 #capture h2{margin:0;font-size:var(--t-lede);font-weight:600;letter-spacing:-.01em}
 #capture .caphint{margin:0;font-size:13px;color:var(--dim);line-height:1.5}
 #capture .caprow{display:flex;gap:9px;align-items:center}
@@ -431,6 +456,24 @@ import {
 } from './parser.js';
 
 const $ = (id) => document.getElementById(id);
+
+// ---------------------------------------------------------------- theme
+// Extends the CSS's prefers-color-scheme escape hatch with an in-app control
+// that can force either direction, independent of the OS setting.
+const THEME_KEY = 'jobmap-theme';
+function getTheme() {
+  try { return localStorage.getItem(THEME_KEY) || 'auto'; } catch { return 'auto'; }
+}
+function applyTheme(t) {
+  if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  else document.documentElement.removeAttribute('data-theme');
+}
+function setTheme(t) {
+  try { if (t === 'auto') localStorage.removeItem(THEME_KEY); else localStorage.setItem(THEME_KEY, t); } catch {}
+  applyTheme(t);
+  render();
+}
+applyTheme(getTheme());
 
 const S = {
   dir: null, files: [], file: null,
@@ -775,6 +818,18 @@ function renderBar() {
     sv.onclick = save;
     bar.appendChild(sv);
   }
+
+  // Theme override — cycles Auto (follows the OS) -> Light -> Dark -> Auto,
+  // reachable regardless of whether a folder is open.
+  const theme = getTheme();
+  const THEME_LABEL = { auto: 'Auto', light: 'Light', dark: 'Dark' };
+  const THEME_NEXT = { auto: 'light', light: 'dark', dark: 'auto' };
+  const th = document.createElement('button');
+  th.className = 'btn';
+  th.textContent = THEME_LABEL[theme];
+  th.title = 'Theme: ' + THEME_LABEL[theme] + ' — click to change';
+  th.onclick = () => setTheme(THEME_NEXT[theme]);
+  bar.appendChild(th);
 }
 
 /**
