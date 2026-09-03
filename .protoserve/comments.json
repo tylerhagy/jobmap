@@ -1,0 +1,342 @@
+{
+  "version": 1,
+  "files": {
+    "index.html": {
+      "counter": 3,
+      "comments": [
+        {
+          "text": "Can you add a folder icon that is leading before the text here? Because I don't think just having text is intuitive enough to know what jobs to be done. md is. Feels like a folder icon will make it way more intuitive that you can click on this and change the destination. One thing I'd like you to look at is like what we did with the priority guide UI, which was another thing you built, and just match that styling. It feels like from like a design system perspective we could just match there because it's doing the same thing.",
+          "anchor": {
+            "kind": "element",
+            "loc": null,
+            "id": null,
+            "tag": "div",
+            "classes": [
+              "file"
+            ],
+            "path": [
+              {
+                "tag": "header",
+                "index": 0
+              },
+              {
+                "tag": "div",
+                "index": 1
+              }
+            ],
+            "selector": "div.file",
+            "text_snippet": "Jobs to be Done.md",
+            "attrs": {
+              "title": "Open a different folder"
+            },
+            "sibs": [
+              {
+                "text": "jobmap",
+                "offset": 1,
+                "dir": "back",
+                "total": 7,
+                "descent": []
+              },
+              {
+                "text": "Producer Payments13 jobs · 7 described in a sessionPrice a month's gas before an outside deadlinePalisade data arrives o",
+                "offset": 2,
+                "dir": "fwd",
+                "total": 5,
+                "descent": [
+                  {
+                    "tag": "div",
+                    "index": 1
+                  }
+                ]
+              }
+            ],
+            "outer_html": "<div class=\"file\" title=\"Open a different folder\">Jobs to be Done.md</div>",
+            "box": {
+              "x": 71,
+              "y": 11,
+              "w": 140,
+              "h": 28
+            },
+            "computed": {
+              "display": "block",
+              "margin": "0px 0px 0px -7px",
+              "padding": "4px 7px",
+              "fontSize": "13.5px",
+              "fontWeight": "400",
+              "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", system-ui, sans-serif",
+              "color": "rgb(22, 24, 29)",
+              "backgroundColor": "rgba(16, 18, 22, 0.05)",
+              "width": "140.188px",
+              "height": "28.25px",
+              "gap": "normal",
+              "borderRadius": "7px"
+            }
+          },
+          "state": {
+            "viewport": {
+              "w": 1373,
+              "h": 805
+            },
+            "scroll": {
+              "x": 0,
+              "y": 0
+            },
+            "path": "/index.html",
+            "hash": null,
+            "title": "jobmap",
+            "open_dialogs": [],
+            "active_tabs": []
+          },
+          "parent_id": null,
+          "id": "40aa1856",
+          "number": 1,
+          "created_at": "2026-09-02T01:34:38.641Z",
+          "resolved": true,
+          "screenshot": "screenshots/40aa1856.png",
+          "resolved_at": "2026-09-02T01:43:33.958Z",
+          "updated_at": "2026-09-02T01:43:33.958Z"
+        },
+        {
+          "text": "need a way to delete a job",
+          "anchor": {
+            "kind": "element",
+            "loc": null,
+            "id": null,
+            "tag": "div",
+            "classes": [
+              "wrap"
+            ],
+            "path": [
+              {
+                "tag": "main",
+                "index": 0
+              },
+              {
+                "tag": "section",
+                "index": 0
+              },
+              {
+                "tag": "div",
+                "index": 0
+              }
+            ],
+            "selector": "div.wrap",
+            "text_snippet": "← All jobs‹14 of 52›Required. Start with a verb and name the outcome, not the screen — Correct an error without reopenin",
+            "attrs": {},
+            "sibs": [
+              {
+                "text": "jobmapJobs to be Done.md ·None of 52 signed offJobsJob mapCapturePresentSave",
+                "offset": 2,
+                "dir": "back",
+                "total": 5,
+                "descent": [
+                  {
+                    "tag": "section",
+                    "index": 0
+                  },
+                  {
+                    "tag": "div",
+                    "index": 0
+                  }
+                ]
+              }
+            ],
+            "outer_html": "<div class=\"wrap\"><div class=\"card\"><div class=\"nav\"><button class=\"back\">← All jobs</button><span class=\"gap\"></span><button>‹</button><span>14 of 52</span><button>›</button></div><input class=\"title\" data-k=\"title\" placeholder=\"Start with a verb — what are they trying to get done?\"><p class=\"titlehint\"><b>Required.</b> Start with a verb and name the outcome, not the screen — <i>Correct an error ",
+            "box": {
+              "x": 26,
+              "y": 78,
+              "w": 1060,
+              "h": 802
+            },
+            "computed": {
+              "display": "block",
+              "margin": "0px",
+              "padding": "0px",
+              "fontSize": "13.5px",
+              "fontWeight": "400",
+              "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", system-ui, sans-serif",
+              "color": "rgb(22, 24, 29)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "width": "1060px",
+              "height": "801.5px",
+              "gap": "normal",
+              "borderRadius": "0px"
+            }
+          },
+          "state": {
+            "viewport": {
+              "w": 1373,
+              "h": 805
+            },
+            "scroll": {
+              "x": 0,
+              "y": 0
+            },
+            "path": "/index.html",
+            "hash": null,
+            "title": "jobmap",
+            "open_dialogs": [],
+            "active_tabs": []
+          },
+          "parent_id": null,
+          "id": "813902e3",
+          "number": 2,
+          "created_at": "2026-09-02T01:35:27.267Z",
+          "resolved": true,
+          "screenshot": "screenshots/813902e3.png",
+          "resolved_at": "2026-09-02T01:43:33.962Z",
+          "updated_at": "2026-09-02T01:43:33.962Z"
+        },
+        {
+          "text": "Done — it now uses priority-guide's file control exactly: same 13px folder glyph, same flex row with a 6px gap, same faint-to-ink hover on the icon, same 28ch truncation. Also ported priority-guide's icon() helper into jobmap so the two apps draw from one glyph set rather than each hand-rolling SVG.",
+          "parent_id": "40aa1856",
+          "anchor": {
+            "kind": "element",
+            "loc": null,
+            "id": null,
+            "tag": "div",
+            "classes": [
+              "file"
+            ],
+            "path": [
+              {
+                "tag": "header",
+                "index": 0
+              },
+              {
+                "tag": "div",
+                "index": 1
+              }
+            ],
+            "selector": "div.file",
+            "text_snippet": "Jobs to be Done.md",
+            "attrs": {
+              "title": "Open a different folder"
+            },
+            "sibs": [
+              {
+                "text": "jobmap",
+                "offset": 1,
+                "dir": "back",
+                "total": 7,
+                "descent": []
+              },
+              {
+                "text": "Producer Payments13 jobs · 7 described in a sessionPrice a month's gas before an outside deadlinePalisade data arrives o",
+                "offset": 2,
+                "dir": "fwd",
+                "total": 5,
+                "descent": [
+                  {
+                    "tag": "div",
+                    "index": 1
+                  }
+                ]
+              }
+            ],
+            "outer_html": "<div class=\"file\" title=\"Open a different folder\">Jobs to be Done.md</div>",
+            "box": {
+              "x": 71,
+              "y": 11,
+              "w": 140,
+              "h": 28
+            },
+            "computed": {
+              "display": "block",
+              "margin": "0px 0px 0px -7px",
+              "padding": "4px 7px",
+              "fontSize": "13.5px",
+              "fontWeight": "400",
+              "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", system-ui, sans-serif",
+              "color": "rgb(22, 24, 29)",
+              "backgroundColor": "rgba(16, 18, 22, 0.05)",
+              "width": "140.188px",
+              "height": "28.25px",
+              "gap": "normal",
+              "borderRadius": "7px"
+            }
+          },
+          "state": null,
+          "id": "a4368557",
+          "number": null,
+          "created_at": "2026-09-02T01:43:33.821Z",
+          "resolved": true
+        },
+        {
+          "text": "Added. 'Delete this job' sits in a footer at the bottom of the job card, behind a confirm — same place and weight ORCA gives it, and away from the fields you touch while editing. If any steps name the job as their Parent, the dialog says how many, and deleting clears their Parent rather than leaving them pointing at nothing. Every surviving job stays byte-identical in the markdown; covered by two new tests.",
+          "parent_id": "813902e3",
+          "anchor": {
+            "kind": "element",
+            "loc": null,
+            "id": null,
+            "tag": "div",
+            "classes": [
+              "wrap"
+            ],
+            "path": [
+              {
+                "tag": "main",
+                "index": 0
+              },
+              {
+                "tag": "section",
+                "index": 0
+              },
+              {
+                "tag": "div",
+                "index": 0
+              }
+            ],
+            "selector": "div.wrap",
+            "text_snippet": "← All jobs‹14 of 52›Required. Start with a verb and name the outcome, not the screen — Correct an error without reopenin",
+            "attrs": {},
+            "sibs": [
+              {
+                "text": "jobmapJobs to be Done.md ·None of 52 signed offJobsJob mapCapturePresentSave",
+                "offset": 2,
+                "dir": "back",
+                "total": 5,
+                "descent": [
+                  {
+                    "tag": "section",
+                    "index": 0
+                  },
+                  {
+                    "tag": "div",
+                    "index": 0
+                  }
+                ]
+              }
+            ],
+            "outer_html": "<div class=\"wrap\"><div class=\"card\"><div class=\"nav\"><button class=\"back\">← All jobs</button><span class=\"gap\"></span><button>‹</button><span>14 of 52</span><button>›</button></div><input class=\"title\" data-k=\"title\" placeholder=\"Start with a verb — what are they trying to get done?\"><p class=\"titlehint\"><b>Required.</b> Start with a verb and name the outcome, not the screen — <i>Correct an error ",
+            "box": {
+              "x": 26,
+              "y": 78,
+              "w": 1060,
+              "h": 802
+            },
+            "computed": {
+              "display": "block",
+              "margin": "0px",
+              "padding": "0px",
+              "fontSize": "13.5px",
+              "fontWeight": "400",
+              "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", system-ui, sans-serif",
+              "color": "rgb(22, 24, 29)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "width": "1060px",
+              "height": "801.5px",
+              "gap": "normal",
+              "borderRadius": "0px"
+            }
+          },
+          "state": null,
+          "id": "1236743a",
+          "number": null,
+          "created_at": "2026-09-02T01:43:33.896Z",
+          "resolved": true
+        }
+      ]
+    }
+  }
+}
