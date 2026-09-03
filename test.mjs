@@ -22,6 +22,7 @@ function ok(name, cond, detail) {
 function eq(name, a, b) { ok(name, a === b, `expected ${JSON.stringify(b)}\n       got      ${JSON.stringify(a)}`); }
 
 const REAL = readFileSync(new URL('./fixtures/real-jobs.md', import.meta.url), 'utf8');
+const OLD_FORMAT = readFileSync(new URL('./fixtures/old-format-retired-fields.md', import.meta.url), 'utf8');
 
 // ---- round-trip, the load-bearing property
 {
@@ -311,6 +312,48 @@ const REAL = readFileSync(new URL('./fixtures/real-jobs.md', import.meta.url), '
   eq('the jobs went with it', r.deleted, held);
   eq('and are gone from the file', allJobs(doc).length, total - held);
   ok('output round-trips', verifyRoundTrip(serializeDocument(doc)).ok);
+}
+
+// ---- old files with the retired Stage / Confidence / Confirmed by / Parent
+// columns still open, per the README's "Old files still open either way".
+{
+  const r = verifyRoundTrip(OLD_FORMAT);
+  ok('old-format file with retired columns round-trips byte-for-byte', r.ok,
+    r.ok ? '' : `line ${r.line}: ${JSON.stringify(r.expected)} vs ${JSON.stringify(r.produced)}`);
+
+  const doc = parseDocument(OLD_FORMAT);
+  eq('old-format file job count', countJobs(doc), 2);
+
+  const jobs = allJobs(doc);
+  const confirmed = jobs.find((j) => j.title.startsWith('Correct an error'));
+  ok('its retired field table is still recognised', confirmed.hasFieldTable);
+  eq('Confidence still reads back', confirmed.fields.confidence, 'Confirmed');
+  eq('Confirmed by still reads back', confirmed.fields.confirmedBy, 'Priya Castellan');
+  eq('Who still reads back alongside the retired columns', confirmed.fields.who, 'Payments team');
+
+  const described = jobs.find((j) => j.title.startsWith('Reconcile the ledger'));
+  eq('a Described job reads back too', described.fields.confidence, 'Described');
+
+  const untouched = serializeDocument(doc);
+  eq('an unedited parse of the old format is byte-identical', untouched, OLD_FORMAT);
+
+  // Editing one job on an old-format file must still round-trip: the retired
+  // Stage/Parent/Confidence/Confirmed-by columns fall away in favour of the
+  // current Who/Depends on/Frequency/Duration/Sign-off table, and the other
+  // job's retired-format table is left completely untouched.
+  confirmed.fields.signoff = 'signed 2026-09-03';
+  touch(confirmed, 'fields');
+  const out = serializeDocument(doc);
+  ok('editing an old-format job round-trips', verifyRoundTrip(out).ok);
+  ok('the edited job now carries the current field table',
+    out.includes('| Who | Depends on | Frequency | Duration | Sign-off |'));
+  ok('the untouched old-format job keeps its retired columns verbatim',
+    out.includes('| Stage | Who | Confidence | Confirmed by | Parent |'));
+  const after = allJobs(parseDocument(out));
+  eq('sign-off reads back after the edit',
+    after.find((j) => j.title.startsWith('Correct an error')).fields.signoff, 'signed 2026-09-03');
+  eq('the untouched job is still Described',
+    after.find((j) => j.title.startsWith('Reconcile the ledger')).fields.confidence, 'Described');
 }
 
 console.log(`${pass} passed, ${fail} failed`);
