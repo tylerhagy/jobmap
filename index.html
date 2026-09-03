@@ -1658,7 +1658,7 @@ document.addEventListener('keydown', (e) => {
   const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT');
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') { e.preventDefault(); save(); return; }
   if (e.key === 'Escape' && S.present) { e.preventDefault(); setPresent(false); return; }
-  if (typing) return;
+  if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.key === 'p' || e.key === 'P') { e.preventDefault(); setPresent(!S.present); return; }
   if (e.key === 's' || e.key === 'S') { e.preventDefault(); S.view = S.view === 'source' ? 'jobs' : 'source'; render(); return; }
   if (e.key === 'c' || e.key === 'C') { e.preventDefault(); setCapture(!S.capture); return; }
