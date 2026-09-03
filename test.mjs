@@ -313,6 +313,22 @@ const OLD_FORMAT = readFileSync(new URL('./fixtures/old-format-retired-fields.md
   eq('and are gone from the file', allJobs(doc).length, total - held);
   ok('output round-trips', verifyRoundTrip(serializeDocument(doc)).ok);
 }
+// ---- the permanent-delete path (the third `ask()` button, `doDeleteGroup`'s
+// 'alt' branch): the group and everyone in it must actually leave the saved file.
+{
+  const doc = parseDocument(REAL);
+  const g = groupsOf(doc)[0];
+  const name = g.name;
+  const titles = g.jobs.map((j) => j.title);
+  ok('the category being deleted has jobs, or this test proves nothing', titles.length > 0);
+  removeGroup(doc, g, 'jobs');
+  const saved = serializeDocument(doc);
+  ok('the deleted category heading is gone from the saved file', !saved.includes(`## ${name}`));
+  for (const title of titles) {
+    ok(`the deleted job "${title}" is gone from the saved file`, !saved.includes(`### ${title}`));
+  }
+  ok('nobody was moved to Unassigned instead', unassignedGroup(doc).jobs.length === 0);
+}
 
 // ---- old files with the retired Stage / Confidence / Confirmed by / Parent
 // columns still open, per the README's "Old files still open either way".
