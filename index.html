@@ -1504,10 +1504,12 @@ function ask(o) {
       + (prompting ? `<input value="${esc(o.value)}"${o.placeholder ? ` placeholder="${esc(o.placeholder)}"` : ''}>` : '')
       + `<div class="acts">`
       +   `<button class="btn" data-a="no">${esc(o.cancel || 'Cancel')}</button>`
+      +   (o.alt ? `<button class="btn danger" data-a="alt">${esc(o.alt)}</button>` : '')
       +   `<button class="btn ${o.danger ? 'danger' : 'primary'}" data-a="yes">${esc(o.ok || 'OK')}</button>`
       + `</div></div>`;
     document.body.appendChild(scrim);
     const inp = scrim.querySelector('input');
+    const altBtn = scrim.querySelector('[data-a=alt]');
     const prior = document.activeElement;
     let done = false;
     const close = (v) => {
@@ -1521,17 +1523,19 @@ function ask(o) {
     };
     const no = () => close(prompting ? null : false);
     const yes = () => close(prompting ? (inp.value.trim() || null) : true);
+    const alt = () => close('alt');
     const key = (e) => {
       if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); no(); return; }
       if (e.key !== 'Enter') return;
       const a = document.activeElement;
-      if (a && a.dataset && a.dataset.a === 'no') return;
+      if (a && a.dataset && (a.dataset.a === 'no' || a.dataset.a === 'alt')) return;
       e.preventDefault(); e.stopPropagation(); yes();
     };
     dialogsOpen++;
     document.addEventListener('keydown', key, true);
     scrim.querySelector('[data-a=no]').onclick = no;
     scrim.querySelector('[data-a=yes]').onclick = yes;
+    if (altBtn) altBtn.onclick = alt;
     scrim.onmousedown = (e) => { if (e.target === scrim) no(); };
     if (inp) { inp.focus(); inp.select(); } else scrim.querySelector('[data-a=yes]').focus();
   });
@@ -1583,9 +1587,11 @@ function renderRecent() {
   if (!S.captured.length) return;
   box.appendChild(el('div', 'recent-h', 'Added to this file'));
   for (const c of S.captured.slice(-5).reverse()) {
+    const here = groupsOf(S.doc).find((g) => g.jobs.includes(c.job));
+    const where = here ? here.name : c.group;
     const d = el('div', 'recent');
     d.innerHTML = `<span class="tick">\u2713</span><b>${esc(c.title)}</b>`
-      + `<span class="where">${esc(c.group)}${c.who ? ' \u00b7 ' + esc(c.who) : ''}</span>`;
+      + `<span class="where">${esc(where)}${c.who ? ' \u00b7 ' + esc(c.who) : ''}</span>`;
     box.appendChild(d);
   }
 }
@@ -1604,6 +1610,11 @@ function refereeCheck(text) {
   box.classList.add('on');
 }
 
+/* Captured statements are sentence-style ("fix the thing"); only the leading
+   letter needs raising to match hand-authored titles — the rest of the
+   sentence stays as said. */
+function capFirst(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
 function doCapture() {
   const input = $('capText');
   const text = input.value.trim();
@@ -1615,13 +1626,14 @@ function doCapture() {
 
   const who = $('capWho').value.trim();
   const looksFull = /,\s*i need\s/i.test(text);
+  const title = capFirst(looksFull ? text.replace(/^when\s+/i, '').split(/,\s*i need/i)[0].trim() : text);
   const job = addJob(group, {
-    title: looksFull ? text.replace(/^when\s+/i, '').split(/,\s*i need/i)[0].trim() : text,
+    title,
     statement: looksFull ? text : null,
     saidBy: who,
     date: new Date().toISOString().slice(0, 10)
   });
-  S.captured.push({ title: job.title, who, group: group.name });
+  S.captured.push({ title: job.title, who, group: group.name, job });
   S.dirty = true;
   input.value = '';
   refereeCheck('');
