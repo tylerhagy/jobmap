@@ -14,10 +14,10 @@
      source of truth for ORCA/jobmap/priority-guide. This is a manually-synced
      copy, not an @import (none of the three apps takes on a build step); see
      that file's README for how to re-check this block for drift. */
-  --bg:#f6f7f9; --panel:#fff; --ink:#16181d; --dim:#6b7280; --faint:#9aa1ac;
-  --line:rgba(16,18,22,.11); --line-2:rgba(16,18,22,.2);
+  --bg:#f5f3ef; --panel:#fffefc; --ink:#1c1a17; --dim:#66615a; --faint:#9a948a;
+  --line:rgba(44,32,20,.10); --line-2:rgba(44,32,20,.19);
   /* jobmap-specific, not part of the shared token set. */
-  --hover:rgba(16,18,22,.05); --hdr-h:52px;
+  --hover:rgba(44,32,20,.06); --hdr-h:52px;
   --accent:#2563eb; --accent-soft:rgba(37,99,235,.10); --on-accent:#fff;
   --warn:#9a6700; --warn-soft:rgba(154,103,0,.11);
   --danger:#d0342c; --danger-soft:rgba(208,52,44,.09);
@@ -27,7 +27,7 @@
   --t-lede:17px; --t-display:28px; --t-hero:38px;
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:28px; --s7:96px;
   --radius:10px; --radius-sm:7px; --ease:cubic-bezier(.22,.61,.36,1);
-  --shadow-sm:0 1px 2px rgba(16,18,22,.04), 0 14px 34px -22px rgba(16,18,22,.30);
+  --shadow-sm:0 1px 2px rgba(44,32,20,.05), 0 14px 34px -22px rgba(44,32,20,.28); --shadow-bar:0 1px 0 var(--line),0 6px 18px -14px rgba(44,32,20,.25); --shadow-accent:0 1px 2px rgba(37,99,235,.35);
   --mono:ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) {
@@ -40,7 +40,7 @@
     --danger:#ff453a; --danger-soft:rgba(255,69,58,.14);
     --ok:#30d158; --ok-soft:rgba(48,209,88,.14); --on-ok:#0e1a14;
     --flag:#ff9c52; --act:#ff6b5c; --none:#969ba6;
-    --shadow-sm:0 1px 2px rgba(0,0,0,.3), 0 14px 34px -22px rgba(0,0,0,.6);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.3), 0 14px 34px -22px rgba(0,0,0,.6); --shadow-bar:0 1px 0 var(--line),0 6px 18px -14px rgba(0,0,0,.6);
   }
 }
 /* Force dark regardless of OS scheme — the other direction of the escape
@@ -54,7 +54,7 @@
   --danger:#ff453a; --danger-soft:rgba(255,69,58,.14);
   --ok:#30d158; --ok-soft:rgba(48,209,88,.14); --on-ok:#0e1a14;
   --flag:#ff9c52; --act:#ff6b5c; --none:#969ba6;
-  --shadow-sm:0 1px 2px rgba(0,0,0,.3), 0 14px 34px -22px rgba(0,0,0,.6);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3), 0 14px 34px -22px rgba(0,0,0,.6); --shadow-bar:0 1px 0 var(--line),0 6px 18px -14px rgba(0,0,0,.6);
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -412,6 +412,26 @@ body[data-present] .referee{font-size:18px;padding:13px 18px}
 .welcome h1{font-size:20px;color:var(--ink);margin:0 0 var(--s2);letter-spacing:-.02em}
 .welcome p{margin:0 0 18px}
 .welcome code{background:var(--hover);padding:1px 5px;border-radius:4px;font-size:12px}
+
+/* ===========================================================================
+   polish pass — same moves as ORCA: warm ground, white surfaces, a brand mark,
+   clearer selection and hover. One block after the base rules so it is easy to
+   review or tune.
+   =========================================================================== */
+#bar{box-shadow:var(--shadow-bar);position:relative;z-index:6;padding:0 var(--s5)}
+#bar .brand{display:inline-flex;align-items:center;gap:9px;font-size:var(--t-title);font-weight:650}
+#bar .brand .mark{flex:none}
+.btn.primary{box-shadow:var(--shadow-accent)}
+#rail{padding:var(--s3) var(--s2)}
+.g-item{padding:8px 10px;border-radius:8px}
+.g-item.on{background:var(--accent-soft);color:var(--accent)}
+.g-item.on .n{font-weight:600}
+.g-item.on .m{color:var(--accent);opacity:.75}
+#stage{padding:var(--s5) var(--s6) 90px}
+.job-row{padding:12px var(--s4);border-radius:10px;transition:background 140ms var(--ease),box-shadow 140ms var(--ease)}
+.job-row .t b{font-weight:600}
+.job-row:hover{background:var(--panel);box-shadow:inset 3px 0 0 var(--line-2),var(--shadow-sm)}
+.job-row.on{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
 </style>
 </head>
 <body>
@@ -753,7 +773,7 @@ function renderBar() {
   bar.innerHTML = '';
   const add = (html) => { const d = document.createElement('div'); d.innerHTML = html; return bar.appendChild(d.firstElementChild); };
 
-  add('<div class="brand">jobmap</div>');
+  add('<div class="brand"><svg class="mark" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><rect width="32" height="32" rx="8" fill="rgb(23,114,69)"/><path d="M9 17L14 22L23 10" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>jobmap</div>');
   if (S.file) {
     // The filename is also how you change folders — no separate button for a
     // thing you do once a session.
