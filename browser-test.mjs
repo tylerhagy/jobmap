@@ -5,12 +5,18 @@
  */
 import { readFileSync } from 'fs';
 import { spawn } from 'child_process';
+import { fileURLToPath } from 'url';
+import path from 'path';
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+// Playwright is optional: a normal install, or PLAYWRIGHT_PATH pointing at its index.mjs.
 let chromium;
-try { ({ chromium } = await import('/Users/thagy/Projects/protoserve/node_modules/playwright/index.mjs')); }
-catch { console.log('playwright not available — skipping browser test'); process.exit(0); }
+for (const spec of ['playwright', process.env.PLAYWRIGHT_PATH].filter(Boolean)) {
+  try { const m = await import(spec); chromium = m.chromium || (m.default && m.default.chromium); if (chromium) break; } catch { /* try the next */ }
+}
+if (!chromium) { console.log('playwright not available — skipping browser test'); process.exit(0); }
 const PORT = 8153;
 const FILE = readFileSync(new URL('./fixtures/library-jobs.migrated.md', import.meta.url), 'utf8');
-const server = spawn('python3', ['serve.py', String(PORT)], { cwd: '/Users/thagy/Projects/jobmap', stdio: 'ignore' });
+const server = spawn('python3', ['serve.py', String(PORT)], { cwd: HERE, stdio: 'ignore' });
 await new Promise((r) => setTimeout(r, 900));
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1400, height: 950 } });
