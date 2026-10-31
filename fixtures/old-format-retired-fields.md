@@ -1,36 +1,36 @@
 # Jobs to be Done — Old Format Fixture
 
-A job is an achievement, not a task. This file predates the 2026-09-01 and
-2026-09-02 retirements and still carries the old Stage / Confidence /
-Confirmed by / Parent columns, to prove those files still open.
+A fictional file. A job is an achievement, not a task. This file predates the
+retirement of the Stage / Confidence / Confirmed by / Parent columns and still
+carries them, to prove those files still open.
 
 ---
 
 ## Fines and Fees
 
-### Correct an error without reopening a closed month
+### Correct a mistaken fine without rewriting history
 
-> When something was paid wrong, I need to put it right on a future payment
-> rather than editing a closed month, so that the accounting stays sound and
+> When a fine was charged wrongly, I need to correct it with a new entry
+> rather than editing the old one, so that the accounts stay sound and
 > nothing already settled moves.
 
 | Stage | Who | Confidence | Confirmed by | Parent |
 | --- | --- | --- | --- | --- |
-| Modify | Front desk | Confirmed | Jordan Lee | Reconcile the ledger |
+| Modify | Front desk | Confirmed | Jordan Lee | Close the day's takings |
 
-Today: absolute. Nobody edits a closed month once it is paid.
+Today: absolute. Nobody edits a closed day once the takings are counted.
 
-*Confirmed by Jordan Lee, 2026-06-01, categorically and without hedging.*
+*Confirmed by Jordan Lee, 2026-03-01, categorically and without hedging.*
 
-### Reconcile the ledger before it closes
+### Close the day's takings
 
-> When the month is about to close, I need every payment to match the ledger,
-> so that nothing is discovered wrong after it is too late to fix.
+> When the library closes, I need the takings to match the till count,
+> so that any difference is found the same day.
 
 | Stage | Who | Confidence | Confirmed by | Parent |
 | --- | --- | --- | --- | --- |
 | Define | Front desk | Described |  |  |
 
-Today: a spreadsheet is checked by hand against the ledger export.
+Today: two staff count together and write the total in a ledger.
 
-*Described by Jordan Lee, 2026-05-20.*
+*Described by Jordan Lee, 2026-02-20.*

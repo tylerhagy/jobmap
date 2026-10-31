@@ -52,19 +52,19 @@ const OLD_FORMAT = readFileSync(new URL('./fixtures/old-format-retired-fields.md
 {
   // First edit inserts the field table (a structural addition, +4 lines).
   const doc = parseDocument(REAL);
-  const j = allJobs(doc).find((x) => x.title.startsWith('Correct an error'));
+  const j = allJobs(doc).find((x) => x.title.startsWith('Correct a mistaken fine'));
   ok('found the target job', !!j);
   j.fields.stage = 'Modify';
   touch(j, 'fields');
   const once = serializeDocument(doc);
   eq('inserting a field table adds exactly 4 lines', once.split('\n').length - REAL.split('\n').length, 4);
   ok('an untouched statement is preserved verbatim',
-    once.includes('> When something was paid wrong, I need to put it right on a future payment rather'));
+    once.includes('> When a fine was charged wrongly, I need to correct it with a new entry rather'));
   ok('edited output round-trips', verifyRoundTrip(once).ok);
 
   // Second edit, table now present, must be exactly one line.
   const doc2 = parseDocument(once);
-  const j2 = allJobs(doc2).find((x) => x.title.startsWith('Correct an error'));
+  const j2 = allJobs(doc2).find((x) => x.title.startsWith('Correct a mistaken fine'));
   j2.fields.who = 'Jordan Lee';
   touch(j2, 'fields');
   const twice = serializeDocument(doc2);
@@ -107,7 +107,7 @@ const OLD_FORMAT = readFileSync(new URL('./fixtures/old-format-retired-fields.md
   const jobs = allJobs(parseDocument(REAL));
   const mal = jobs.filter((j) => j.statement.malformed);
   eq('exactly one real statement is malformed', mal.length, 1);
-  ok('it is the two-need meter job', mal[0].title.startsWith('Stop paying on a meter'));
+  ok('it is the two-need waiver job', mal[0].title.startsWith('Waive a fee'));
 }
 
 // ---- lint: flags real problems, not ordinary business language
@@ -123,7 +123,7 @@ const OLD_FORMAT = readFileSync(new URL('./fixtures/old-format-retired-fields.md
   // These are ordinary words in this domain and must not be flagged.
   for (const s of ['When paid, I need it in a form I can reconcile, so that accounts agree.',
     'When I report our position, I need our own data, so that I am not dependent on outsiders.',
-    'When a meter in the field fails, I need to know, so that volumes are right.']) {
+    'When a scanner at the desk fails, I need to know, so that loans are recorded.']) {
     const iss = lintJob({ statement: parseStatement(s), fields: {} });
     ok(`lint leaves ordinary language alone: ${s.slice(0, 34)}...`, !iss.some((i) => i.kind === 'smuggled-solution'));
   }
@@ -260,12 +260,12 @@ const OLD_FORMAT = readFileSync(new URL('./fixtures/old-format-retired-fields.md
   const list = allJobs(doc);
   eq('no roles yet', roles(doc).length, 0);
   eq('every job is unroled', unroled(doc).length, list.length);
-  list[0].fields.who = 'Payments';
-  list[1].fields.who = 'Payments';
-  list[2].fields.who = 'Contracting';
+  list[0].fields.who = 'Circulation';
+  list[1].fields.who = 'Circulation';
+  list[2].fields.who = 'Cataloguing';
   const r = roles(doc);
   eq('two distinct roles', r.length, 2);
-  eq('busiest role first', r[0].name, 'Payments');
+  eq('busiest role first', r[0].name, 'Circulation');
   eq('with both its jobs', r[0].jobs.length, 2);
   eq('the rest are unroled', unroled(doc).length, list.length - 3);
 }
@@ -341,13 +341,13 @@ const OLD_FORMAT = readFileSync(new URL('./fixtures/old-format-retired-fields.md
   eq('old-format file job count', countJobs(doc), 2);
 
   const jobs = allJobs(doc);
-  const confirmed = jobs.find((j) => j.title.startsWith('Correct an error'));
+  const confirmed = jobs.find((j) => j.title.startsWith('Correct a mistaken fine'));
   ok('its retired field table is still recognised', confirmed.hasFieldTable);
   eq('Confidence still reads back', confirmed.fields.confidence, 'Confirmed');
   eq('Confirmed by still reads back', confirmed.fields.confirmedBy, 'Jordan Lee');
   eq('Who still reads back alongside the retired columns', confirmed.fields.who, 'Front desk');
 
-  const described = jobs.find((j) => j.title.startsWith('Reconcile the ledger'));
+  const described = jobs.find((j) => j.title.startsWith('Close the day'));
   eq('a Described job reads back too', described.fields.confidence, 'Described');
 
   const untouched = serializeDocument(doc);
@@ -367,9 +367,9 @@ const OLD_FORMAT = readFileSync(new URL('./fixtures/old-format-retired-fields.md
     out.includes('| Stage | Who | Confidence | Confirmed by | Parent |'));
   const after = allJobs(parseDocument(out));
   eq('sign-off reads back after the edit',
-    after.find((j) => j.title.startsWith('Correct an error')).fields.signoff, 'signed 2026-09-03');
+    after.find((j) => j.title.startsWith('Correct a mistaken fine')).fields.signoff, 'signed 2026-09-03');
   eq('the untouched job is still Described',
-    after.find((j) => j.title.startsWith('Reconcile the ledger')).fields.confidence, 'Described');
+    after.find((j) => j.title.startsWith('Close the day')).fields.confidence, 'Described');
 }
 
 console.log(`${pass} passed, ${fail} failed`);

@@ -23,19 +23,19 @@ preamble, rubric, group intros, notes — is preserved verbatim.
 ```markdown
 ## Fines and Fees
 
-### Correct an error without reopening a month that's already paid
+### Correct a mistaken fine without rewriting history
 
-> When something was paid wrong, I need to put it right on a future payment rather
-> than editing a closed month, so that the accounting stays sound and nothing already
+> When a fine was charged wrongly, I need to correct it with a new entry rather
+> than editing the old one, so that the accounts stay sound and nothing already
 > settled moves.
 
 | Who | Depends on | Frequency | Duration | Sign-off |
 | --- | --- | --- | --- | --- |
-| Payments | Pay a patron once, in a form they can reconcile | | | |
+| Circulation | Close the day's takings against the till count | | | |
 
-Today: absolute. Jordan Lee: "We don't go back and change anything that's been paid, ever."
+Today: absolute. Jordan Lee: "We never edit a closed day, ever."
 
-*Described by Jordan Lee, 2026-08-03, categorically and without hedging.*
+*Described by Jordan Lee, 2026-03-12, categorically and without hedging.*
 ```
 
 | Field | Means |
@@ -89,15 +89,15 @@ Sign-off is shown only where it is news. Not-signed-off is the state of nearly e
 file and gets no ink at all, because absence already means nobody has agreed it — exactly what the
 file means by a blank. Signed off is marked, and so is *who does it* where somebody has said.
 
-**Roles are picked, never typed.** A free-text box lets *Front desk*, *Payments Team* and
-*paymnets team* become three roles that are one role, which would make the Roles view a liar. So the
+**Roles are picked, never typed.** A free-text box lets *Front desk*, *Front Desk* and
+*fornt desk* become three roles that are one role, which would make the Roles view a liar. So the
 field is a list of the roles already in the file plus *add a role* — a deliberate act with its own
 dialog, rather than a side effect of typing.
 
 **How often is picked, not typed.** "Every 2 weeks", "the 3rd Thursday" and "the 5th and the 25th"
 are different kinds of answer, and a text box flattens them into prose you cannot group by later. So
 the field is a shape picker that composes the sentence. The fifth shape is **irregular**, free text,
-and it is not a cop-out: most of these jobs fire when a file lands or a patron calls, and making
+and it is not a cop-out: most of these jobs fire when a file arrives or a patron calls, and making
 those choose a calendar would record a schedule nobody keeps.
 
 **Every job is in three parts.** A statement that will not split used to render as one grey

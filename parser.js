@@ -34,7 +34,7 @@ export const UNASSIGNED = 'Unassigned';
  * reads that sentence back into parts for the editor.
  *
  * Crucially there is an `irregular` kind, kept verbatim. A great many of these
- * jobs are event-driven, not scheduled: "when a supplier changes its layout" is
+ * jobs are event-driven, not scheduled: "when a supplier changes its file layout" is
  * an honest answer and forcing it into a calendar would be a false one.
  */
 export const FREQ_UNITS = ['day', 'week', 'month', 'quarter', 'year'];

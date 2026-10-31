@@ -912,7 +912,7 @@ async function doAddGroup() {
     title: 'New category',
     body: 'Name it after a <b>group of people or an area of the business</b> \u2014 the way you would '
       + 'introduce it in a meeting.',
-    value: '', placeholder: 'Fines and Fees, Contracting, Scheduling\u2026', ok: 'Add'
+    value: '', placeholder: 'Lending, Returns, Membership\u2026', ok: 'Add'
   });
   if (!name) return;
   if (groupsOf(S.doc).some((g) => g.name.toLowerCase() === name.trim().toLowerCase())) {
@@ -1240,8 +1240,8 @@ function icon(name, size = 14) {
 }
 
 /**
- * Who does it. A free-text box would let "Front desk", "Payments Team" and
- * "paymnets team" become three roles that are one role, and the whole point of
+ * Who does it. A free-text box would let "Front desk", "Front Desk" and
+ * "fornt desk" become three roles that are one role, and the whole point of
  * the roles view is that they are not. So: pick from the roles already in the
  * file, or add one — and adding one is deliberate rather than a side effect of
  * typing.
@@ -1268,9 +1268,9 @@ function mkRole(job, ro) {
     }
     const name = await ask({
       title: 'Add a role',
-      body: 'The role, not the person \u2014 <b>Payments</b>, not <b>Jordan</b>. '
+      body: 'The role, not the person \u2014 <b>Circulation</b>, not <b>Jordan</b>. '
         + 'It joins the list for every other job.',
-      value: '', placeholder: 'Payments, Contracting, Scheduling\u2026', ok: 'Add'
+      value: '', placeholder: 'Circulation, Cataloguing, Events\u2026', ok: 'Add'
     });
     if (!name) { sel.value = job.fields.who; return; }
     const exists = known.find((k) => k.toLowerCase() === name.trim().toLowerCase());
@@ -1362,7 +1362,7 @@ function mkDepends(job, ro) {
  * into prose you cannot group by afterwards.
  *
  * The fifth is "irregular", free text, and it is not a cop-out: most of these
- * jobs fire when a file lands or a patron calls. Making those pick a calendar
+ * jobs fire when a file arrives or a patron calls. Making those pick a calendar
  * would record a schedule nobody keeps.
  */
 const FREQ_KIND_LABEL = {
@@ -1450,7 +1450,7 @@ function mkFrequency(job, ro) {
   } else if (f.kind === 'irregular') {
     const tx = document.createElement('input');
     tx.className = 'cell grow'; tx.value = f.text || ''; tx.disabled = ro;
-    tx.placeholder = 'when a file lands, when a patron calls\u2026';
+    tx.placeholder = 'when a file arrives, when a patron calls\u2026';
     tx.onchange = () => put({ ...f, text: tx.value });
     row.appendChild(tx);
   }

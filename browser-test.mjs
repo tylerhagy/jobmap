@@ -95,13 +95,13 @@ ok('no required/optional sermons', !(await page.locator('.titlehint').count()));
 await page.selectOption('[data-k="who"]', { index: 0 }).catch(() => {});
 await page.evaluate(() => {
   const s = document.querySelector('[data-k="who"]');
-  const o = document.createElement('option'); o.value = 'Payments'; s.appendChild(o);
-  s.value = 'Payments'; s.dispatchEvent(new Event('change'));
+  const o = document.createElement('option'); o.value = 'Circulation'; s.appendChild(o);
+  s.value = 'Circulation'; s.dispatchEvent(new Event('change'));
 });
 await page.waitForTimeout(250);
 await page.locator('.tabs button:has-text("Roles")').click();
 await page.waitForTimeout(250);
-ok('the role shows up in the Roles view', (await page.textContent('#stage')).includes('Payments'));
+ok('the role shows up in the Roles view', (await page.textContent('#stage')).includes('Circulation'));
 ok('and unroled jobs are called out', (await page.textContent('#stage')).includes('Nobody named'));
 
 // capture
